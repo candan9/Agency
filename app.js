@@ -7,7 +7,7 @@ const photoRoute = require('./routes/photoRoute');
 const app = express();
 
 //Connect MONGODB
-mongoose.connect('mongodb://localhost/agency-db', {
+mongoose.connect('mongodb+srv://candan:mEvnnlCtWi7rn8DS@cluster0.onklf.mongodb.net/agency-db?retryWrites=true&w=majority', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 }).then(()=> {
