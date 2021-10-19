@@ -2,18 +2,12 @@ const Photo = require('../models/Photo');
 const fs = require('fs');
 
 exports.getAllPhotos = async (req, res) => {
-  /*const photos = await Photo.find({}).sort('-dateCreated');
-  res.render('index', {
-    photos,
-  });*/
-
- 
   const photos = await Photo.find({})
     .sort('-dateCreated')
 
   res.render('portfolio', {
     photos:photos,
-    page_name: 'courses'
+    page_name: 'photos'
   });
 };
 
@@ -21,6 +15,7 @@ exports.getPhoto = async (req, res) => {
   const photo = await Photo.findById(req.params.id);
   res.render('photo', {
     photo,
+    page_name: 'photos'
   });
 };
 
@@ -36,7 +31,7 @@ exports.createPhoto = async (req, res) => {
       ...req.body,
       image: '/uploads/' + uploadeImage.name,
     });
-    res.redirect('/');
+    res.redirect('/photos');
   });
 };
 
@@ -53,5 +48,5 @@ exports.deletePhoto = async (req, res) => {
   let deletedImage = __dirname + '/../public' + photo.image;
   fs.unlinkSync(deletedImage);
   await Photo.findByIdAndRemove(req.params.id);
-  res.redirect('/');
+  res.redirect('/photos');
 };
