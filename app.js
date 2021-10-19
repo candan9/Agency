@@ -1,4 +1,9 @@
 const express = require('express');
+const mongoose = require('mongoose');
+const methodOverride = require('method-override');
+const fileUpload = require('express-fileupload');
+const pageRoute = require('./routes/pageRoute');
+const photoRoute = require('./routes/photoRoute');
 const app = express();
 
 //Connect MONGODB
@@ -9,10 +14,6 @@ mongoose.connect('mongodb://localhost/agency-db', {
   console.log('DB Connected Successfully')
 });
 
-
-app.get('/', (req,res)=>{
-    res.send("naber")
-});
 //TEMPLATE ENGINE
 app.set('view engine', 'ejs');
 // MIDDLEWARES
@@ -25,6 +26,10 @@ app.use(
     methods: ['POST', 'GET'],
   })
 );
+
+app.use('/', pageRoute);
+app.use('/photos', photoRoute);
+
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
  console.log("bağlandı");
